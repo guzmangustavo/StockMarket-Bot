@@ -50,6 +50,6 @@ The price is obtained by the use of [yfinance](https://pypi.org/project/yfinance
 
 StockMarketAr is a software developed with a educational purpose. It wasn't designed to support real financial desicion making. So it shouldn't be used this way.
 
-Officials stock markets are the main source about stock prices.
+Official stock markets are the main source about stock prices.
 
-In Argentina, the enforcement authority in stock markets is the [National Value Comission](https://www.cnv.gov.ar/sitioweb/). In its site can be found more information.
+In Argentina, the enforcement authority in stock markets is the [National Value Comission](https://www.cnv.gov.ar/sitioweb/). You can check its site in order to get more information.
