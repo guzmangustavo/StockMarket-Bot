@@ -164,7 +164,6 @@ def main():
     """
     The main function includes deployment settings and conversation's flow
     settings.
-
     """
     updater = Updater(token, use_context = True)
     disp = updater.dispatcher
