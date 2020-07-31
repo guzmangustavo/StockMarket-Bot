@@ -1,4 +1,6 @@
-﻿#@author: Gustavo Guzmán
+﻿#!/usr/bin/env python
+#@author: Gustavo Guzmán
+
 import os
 from telegram.ext import Updater, MessageHandler, CommandHandler
 from telegram.ext import ConversationHandler, Filters
@@ -15,24 +17,50 @@ PORT = int(os.environ.get("PORT", 5000))
 
 # Functions definition
 def start(update, context):
-    welcome_text = "Hola! Soy StockMarketAR. ¿Te interesa conocer la última cotización de alguna acción en los mercados de valores argentinos?"
+    """
+    The bot says hello to the user and ask him to continue or cancel the 
+    conversation, displaying the keyboard.
+    The process moves to choice function.
+    """
+    welcome_text = "Hola! Soy StockMarketAR. ¿Te interesa conocer la última " \
+                   "cotización de alguna acción en los mercados de valores " \
+                   "argentinos?"
     update.message.reply_text(welcome_text, reply_markup = reply_markup)
     return "CHOICE"
 
 def choice (update, context):
+    """
+    The bot receives user's answer, removing the keyboard.
+    If it is 'SI', the bot ask him stock's ticker and the process moves to 
+    stock_query function.
+    If not, the conversation ends.
+
+    """
     answer = update.message.text
     user = update.message.from_user
     update.message.reply_text("Gracias por tu respuesta!",
                               reply_markup = ReplyKeyboardRemove())
     if answer == 'SI':
-        update.message.reply_text("Por favor, indica el símbolo de la acción (ticker) cuya cotización te interesa conocer.")
+        update.message.reply_text("Por favor, indica el símbolo de la acción " \
+                                  "(ticker) cuya cotización te interesa " \
+                                  "conocer.")
         return "STOCK"
     else:
-        ending_text = "Por el momento, solo puedo brindarte la última cotización de acciones.\nVuelve pronto, estoy aprendiendo a realizar otras tareas."
+        ending_text = "Por el momento, solo puedo brindarte la última " \
+                      "cotización de acciones.\nVuelve pronto, estoy " \
+                      "aprendiendo a realizar otras tareas."
         update.message.reply_text(ending_text)
         return ConversationHandler.END
           
 def stock_query(update, context):
+    """
+    The bot receives the ticker entered by the user and evaluates if it is in
+    accion list.
+    If it is, it displays last stock price and the process moves to choice
+    function.
+    if not, it asks him to enter the ticker one more time and stock_query 
+    function is executed again.
+    """
     stock_name = update.message.text
     stock_name = stock_name.upper()
     accion = [
@@ -115,19 +143,29 @@ def stock_query(update, context):
         f"{stock_name}"+".BA",
         period = "1d"
         )["Adj Close"][0]
-        update.message.reply_text(f"La última cotización de {stock_name} es "
-                              + f"{price:.2f}\n¿Deseas consultar otra cotización?",
-                              reply_markup = reply_markup)
+        update.message.reply_text(f"La última cotización de {stock_name} es " \
+                                  f"{price:.2f}\n¿Deseas consultar otra " \
+                                  "cotización?",
+                                  reply_markup = reply_markup)
         return "CHOICE"
     else:
-        update.message.reply_text(f"{stock_name} no parece ser un símbolo válido.\n¿Puedes ingresarlo otra vez?")
+        update.message.reply_text(f"{stock_name} no parece ser un símbolo " \
+                                  "válido.\n¿Puedes ingresarlo otra vez?")
         return "STOCK"
         
 def cancel(update, context):
-     update.message.reply_text("Espero haberte ayudado. Hasta pronto!")
-     return ConversationHandler.END
+    """
+    The bot says goodbye and the conversation ends.
+    """
+    update.message.reply_text("Espero haberte ayudado. Hasta pronto!")
+    return ConversationHandler.END
      
 def main():
+    """
+    The main function includes deployment settings and conversation's flow
+    settings.
+
+    """
     updater = Updater(token, use_context = True)
     disp = updater.dispatcher
     conv_handler = ConversationHandler(
