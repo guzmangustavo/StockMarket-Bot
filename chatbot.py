@@ -34,7 +34,6 @@ def choice (update, context):
     If it is 'SI', the bot ask him stock's ticker and the process moves to 
     stock_query function.
     If not, the conversation ends.
-
     """
     answer = update.message.text
     user = update.message.from_user
