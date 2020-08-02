@@ -54,7 +54,7 @@ def choice (update, context):
 def stock_query(update, context):
     """
     The bot receives the ticker entered by the user and evaluates if it is in
-    accion list.
+    stock list.
     If it is, it displays last stock price and the process moves to choice
     function.
     if not, it asks him to enter the ticker one more time and stock_query 
@@ -62,7 +62,7 @@ def stock_query(update, context):
     """
     stock_name = update.message.text
     stock_name = stock_name.upper()
-    accion = [
+    stock = [
         "AGRO",
         "ALUA",
         "AUSO",
@@ -137,7 +137,7 @@ def stock_query(update, context):
         "VALO",
         "YPFD"
         ]
-    if stock_name in accion:
+    if stock_name in stock:
         price = yf.download(
         f"{stock_name}"+".BA",
         period = "1d"
