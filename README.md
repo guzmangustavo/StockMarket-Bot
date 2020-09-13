@@ -48,7 +48,7 @@ The price is obtained by the use of [yfinance](https://pypi.org/project/yfinance
 
 ### Disclaimer
 
-StockMarketAr is a software developed with a educational purpose. It wasn't designed to support real financial desicion making. So it shouldn't be used this way.
+StockMarketAr is a software developed with a educational purpose.
 
 Official stock markets are the main source about stock prices.
 
