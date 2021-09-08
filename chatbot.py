@@ -13,7 +13,7 @@ keyboard = [['SI', 'NO']]
 reply_markup = ReplyKeyboardMarkup(keyboard,
                                        one_time_keyboard = True,
                                        resize_keyboard = True)
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", "8443"))
 
 # Functions definition
 def start(update, context):
@@ -177,8 +177,8 @@ def main():
     disp.add_handler(conv_handler)
     updater.start_webhook(listen = "0.0.0.0",
                           port = int(PORT),
-                          url_path = token)
-    updater.bot.setWebhook('https://appname.herokuapp.com/' + token)
+                          url_path = token,
+                          webhook_url='https://appname.herokuapp.com/' + token)
     updater.idle()
 
 if __name__ == '__main__':
